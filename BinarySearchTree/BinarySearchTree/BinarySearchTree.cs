@@ -71,9 +71,11 @@ namespace BinarySearchTree
 
         private Node<T> Delete(ref Node<T> root)
         {
+            var tempValue = default(T);
+
             if (_globalRoot == root)
             {
-                Console.WriteLine("Deletion of root element is not allowed");
+                //Deletion of root element is not allowed;
                 return root;
             }
             if (root.LeftNode == null && root.RightNode == null)
@@ -86,20 +88,28 @@ namespace BinarySearchTree
             }
             else if (root.RightNode == null)
             {
-               root = root.LeftNode;
+                root = root.LeftNode;
             }
             else
             {
-                Replace(ref root);
+                Replace(ref root, ref tempValue);
+                root.Value = tempValue;
             }
             return root;
         }
 
-        private void Replace(ref Node<T> root)
+        private static void Replace(ref Node<T> root, ref T newValue)
         {
+            if (root == null) return;
             if (root.LeftNode == null)
+            {
+                newValue = root.Value;
                 root = root.RightNode;
-            else { Replace(ref root.LeftNode);}
+            }
+            else
+            {
+                Replace(ref root.LeftNode, ref newValue);
+            }
         }
     }
 }
