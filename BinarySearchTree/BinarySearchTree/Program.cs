@@ -24,27 +24,48 @@ namespace BinarySearchTree
 
             foreach (var r in rnd)
             {
-                root = tree.InsertNode(root, r);
+                tree.InsertNode(r);
             }
 
             Console.WriteLine("input array: ");
             Console.WriteLine(string.Join(",", rnd));
             Console.ReadLine();
             
-            var values = tree.PreorderTraverseTree(root).ToList();
+            var values = tree.PreorderTraverseTree().ToList();
             Console.WriteLine("the trees preorder traversal: ");
             Console.WriteLine(string.Join(",", values));
+            Console.ReadLine();
+
+            var vals = tree.InOrderTraverseTree().ToList();
+            Console.WriteLine("the trees inorder traversal: ");
+            Console.WriteLine(string.Join(",", vals));
             Console.ReadLine();
 
             var rndItem = rnd[rndNo.Next(0, rnd.Length)];
             Console.WriteLine(rndItem + " will be deleted from tree");
             Console.ReadLine();
-            tree.DeleteNode(ref root, rndItem);
+            tree.DeleteNode(rndItem);
            
-            var restTree = tree.PreorderTraverseTree(root).ToList();
+            var restTree = tree.PreorderTraverseTree().ToList();
             Console.WriteLine("tree after deletion: ");
             Console.WriteLine(string.Join(",", restTree));
             Console.ReadLine();
+
+            var treeContent = tree.PreorderTraverseTree().ToList();
+            var rndItem1 = treeContent[2];
+            Console.WriteLine("try to find: " + rndItem1);
+            var test = tree.FindNode(rndItem1);
+            Console.WriteLine("Found: "+test);
+            Console.ReadLine();
+
+            Console.WriteLine("Balancing tree now");
+            var balancedTree = tree.BalancedTree();
+
+            var balancedPreOrder = balancedTree.PreorderTraverseTree().ToList();
+            Console.WriteLine("preorder traversal of balanced tree: ");
+            Console.WriteLine(string.Join(",", balancedPreOrder));
+            Console.ReadLine();
+
         }
     }
 }
